@@ -1,0 +1,35 @@
+# データセットのディレクトリ
+dataroot: "/data"
+
+# Number of workers for dataloader
+workers: 2
+
+# 訓練データのバッチサイズ
+batch_size: 128
+
+# 訓練データの画像サイズ 全ての画像をこの値でリサイズ
+image_size: 64
+
+# 訓練データのチャンネル数 カラー画像なら3
+nc: 3
+
+# 潜在ベクトルのサイズ(i.e. generator入力サイズ)
+nz: 100
+
+# Generatorの特徴マップのサイズ
+ngf: 64
+
+# Discriminatorの特徴マップのサイズ
+ndf: 64
+
+# 学習のエポック数
+num_epochs: 200
+
+# 最適化手法の学習率
+lr: 0.0002
+
+# Adamのハイパーパラメータbeta1
+beta1: 0.5
+
+# GPUの利用数
+ngpu: 1
