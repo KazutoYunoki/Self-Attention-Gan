@@ -27,5 +27,5 @@ def make_dataset(dataroot, image_size):
 
 
 if __name__ == "__main__":
-    dataset = make_dataset(dataroot="/data", image_size=64)
+    dataset = make_dataset(dataroot="/data/cat_dog", image_size=64)
     print(dataset)
