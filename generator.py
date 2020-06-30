@@ -12,12 +12,28 @@ class Generator(nn.Module):
         self.ngf = ngf
         self.nc = nc
 
+        # 128 * 128 の画像を生成する際にレイヤーを追加
+        self.layer0 = nn.Sequential(
+            nn.utils.spectral_norm(
+                nn.ConvTranspose2d(
+                    self.nz,
+                    self.ngf * 16,
+                    kernel_size=4,
+                    stride=1,
+                    padding=0,
+                    bias=False,
+                )
+            ),
+            nn.BatchNorm2d(self.ngf * 16),
+            nn.ReLU(True),
+        )
         self.layer1 = nn.Sequential(
             # 入力Zを畳み込み層へ
             # Spectral Normalizationを追加
             nn.utils.spectral_norm(
                 nn.ConvTranspose2d(
-                    self.nz,
+                    self.ngf * 16,
+                    # self.nz,
                     self.ngf * 8,
                     kernel_size=4,
                     stride=1,
@@ -45,6 +61,8 @@ class Generator(nn.Module):
             nn.BatchNorm2d(self.ngf * 4),
             nn.ReLU(True),
         )
+
+        self.self_attention0 = Self_Attention(in_dim=ngf * 4)
 
         self.layer3 = nn.Sequential(
             # state size. (self.ngf*4) x 8 x 8
@@ -95,8 +113,10 @@ class Generator(nn.Module):
         )
 
     def forward(self, z):
-        out = self.layer1(z)
+        out = self.layer0(z)
+        out = self.layer1(out)
         out = self.layer2(out)
+        out, attention_map0 = self.self_attention0(out)
         out = self.layer3(out)
         out, attention_map1 = self.self_attention1(out)
         out = self.layer4(out)
