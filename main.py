@@ -220,7 +220,7 @@ def main(cfg):
             D_losses.append(errD.item())
 
             # Generatorの動作確認と出力画像を保存
-            if (iters % 500 == 0) or (
+            if (iters % 2000 == 0) or (
                 (epoch == cfg.num_epochs - 1) and (i == len(dataloader) - 1)
             ):
                 with torch.no_grad():
@@ -265,6 +265,15 @@ def main(cfg):
     plt.imshow(np.transpose(img_list[-1], (1, 2, 0)))
     plt.show()
     plt.savefig("result_img.png")
+
+    # 画像の途中経過も保存
+    for i in range(len(img_list)):
+        plt.figure(figsize=(15, 15))
+        plt.axis("off")
+        plt.title("Fake Image_" + str(i))
+        plt.imshow(np.transpose(img_list[i], (1, 2, 0)))
+        plt.show()
+        plt.savefig("fake_image_" + str(i))
 
 
 if __name__ == "__main__":
