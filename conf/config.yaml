@@ -1,5 +1,5 @@
 # データセットのディレクトリ
-dataroot: "/data/cat_dog"
+dataroot: "/data/melanoma_img"
 
 # Number of workers for dataloader
 workers: 2
