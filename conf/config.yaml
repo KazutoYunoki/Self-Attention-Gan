@@ -5,7 +5,7 @@ dataroot: "/data/melanoma_img"
 workers: 2
 
 # 訓練データのバッチサイズ
-batch_size: 128
+batch_size: 64
 
 # 訓練データの画像サイズ 全ての画像をこの値でリサイズ
 image_size: 128
@@ -23,7 +23,7 @@ ngf: 128
 ndf: 128
 
 # 学習のエポック数
-num_epochs: 5000
+num_epochs: 200
 
 # 最適化手法の学習率
 lr: 0.0002
@@ -32,4 +32,4 @@ lr: 0.0002
 beta1: 0.5
 
 # GPUの利用数
-ngpu: 1
+ngpu: 2
