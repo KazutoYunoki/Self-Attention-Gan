@@ -52,28 +52,12 @@ class Discriminator(nn.Sequential):
         # Self-Attention層の追加
         self.self_attention2 = Self_Attention(in_dim=ndf * 8)
 
-        # 128 * 128 の時、最後の2層を追加
-        self.layer5 = nn.Sequential(
-            nn.utils.spectral_norm(
-                nn.Conv2d(self.ndf * 8, self.ndf * 16, 4, 2, 1, bias=False)
-            ),
-            nn.BatchNorm2d(self.ndf * 16),
-            nn.LeakyReLU(0.2, inplace=True),
-        )
-
-        self.self_attention3 = Self_Attention(in_dim=ndf * 16)
-
-        self.last = nn.Sequential(
-            nn.utils.spectral_norm(nn.Conv2d(self.ndf * 16, 1, 4, 1, 0, bias=False)),
-        )
-
-        """#64×64の時の最後の層
+        # 64×64の時の最後の層
         self.last = nn.Sequential(
             # state size. (ndf * 8) * 4 * 4
             nn.Conv2d(self.ndf * 8, 1, 4, 1, 0, bias=False),
-            # nn.Sigmoid(), # 本ではSigmoid関数を通してないためいったんコメントアウト
+            nn.Sigmoid(),  # 本ではSigmoid関数を通してないためいったんコメントアウト
         )
-        """
 
     def forward(self, z):
         out = self.layer1(z)
@@ -82,8 +66,6 @@ class Discriminator(nn.Sequential):
         out, attention_map1 = self.self_attention1(out)
         out = self.layer4(out)
         out, attention_map2 = self.self_attention2(out)
-        out = self.layer5(out)
-        out, attention_map3 = self.self_attention3(out)
         out = self.last(out)
 
         return out, attention_map1, attention_map2

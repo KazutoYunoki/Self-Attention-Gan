@@ -5,10 +5,10 @@ dataroot: "/data/melanoma_img"
 workers: 2
 
 # 訓練データのバッチサイズ
-batch_size: 64
+batch_size: 128
 
 # 訓練データの画像サイズ 全ての画像をこの値でリサイズ
-image_size: 128
+image_size: 64
 
 # 訓練データのチャンネル数 カラー画像なら3
 nc: 3
@@ -17,13 +17,13 @@ nc: 3
 nz: 100
 
 # Generatorの特徴マップのサイズ
-ngf: 128
+ngf: 64
 
 # Discriminatorの特徴マップのサイズ
-ndf: 128
+ndf: 64
 
 # 学習のエポック数
-num_epochs: 200
+num_epochs: 10000
 
 # 最適化手法の学習率
 lr: 0.0002
