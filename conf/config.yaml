@@ -32,4 +32,4 @@ lr: 0.0002
 beta1: 0.5
 
 # GPUの利用数
-ngpu: 2
+ngpu: 1

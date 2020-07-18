@@ -236,7 +236,8 @@ def main(cfg):
             if (epoch == cfg.num_epochs - 1) and (i == len(dataloader) - 1):
                 with torch.no_grad():
                     fake, _, _ = netG(fixed_noise)
-                    print("fake_shape:" + fake.shape)
+                    print("fake_shape:" + str(fake.shape))
+                    print("fakeの一次元目取得:" + str(len(fake[0])))
                     for i in range(len(fake[0])):
                         result_list.append(fake[i])
 
