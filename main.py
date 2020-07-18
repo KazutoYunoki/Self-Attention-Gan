@@ -232,15 +232,6 @@ def main(cfg):
 
             iters += 1
 
-            # Generatotの最後の出力画像を1枚ずつ保存
-            if (epoch == cfg.num_epochs - 1) and (i == len(dataloader) - 1):
-                with torch.no_grad():
-                    fake, _, _ = netG(fixed_noise)
-                    print("fake_shape:" + str(fake.shape))
-                    print("fakeの一次元目取得:" + str(len(fake[0])))
-                    for i in range(len(fake[0])):
-                        result_list.append(fake[i])
-
     plt.figure(figsize=(10, 5))
     plt.title("Generator and Discriminator Loss During Training")
     plt.plot(G_losses, label="G")
@@ -284,8 +275,6 @@ def main(cfg):
         plt.imshow(np.transpose(img_list[i], (1, 2, 0)))
         plt.show()
         plt.savefig("fake_image_" + str(i))
-
-    # 　生成した画像を1枚ずつ保存
 
 
 if __name__ == "__main__":
